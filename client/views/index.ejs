@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Message!</title>
+    </head>
+    <body>
+        <h1>Message</h1>
+        <form action="/message" method="post">
+            <input type="input" name="name" placeholder="Name">
+            <textarea name="message" rows="8" cols="40" placeholder="Message!"></textarea>
+            <input type="submit" value="submit">
+        </form>
+        <% if(messages){ %>
+            <% for (var i = 0; i < messages.length; i++){ %>
+                <h2><%= messages[i].name %> </h2>
+                <p>
+                    <%= messages[i].createdAt %>
+                </p>
+                <p>
+                    <%= messages[i].message %>
+                </p>
+                <% for (var j = 0; j < comments.length; j++){ %>
+                    <% if(messages[i]._id == comments[j].message_id){ %>
+                        <h2><%= comments[j].name %> </h2>
+                        <p>
+                            <%= comments[j].createdAt %>
+                        </p>
+                        <p>
+                            <%= comments[j].message %>
+                        </p>
+                    <% } %>
+                <% } %>
+                <form action="/comment/<%= messages[i]._id %>" method="post">
+                    <input type="input" name="name" placeholder="Name">
+                    <textarea name="message" rows="8" cols="40" placeholder="Message!"></textarea>
+                    <input type="submit" value="submit">
+                </form>
+                <hr>
+            <% } %>
+        <% } %>
+    </body>
+</html>
